@@ -1,0 +1,62 @@
+.monthDay {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 1;
+
+  &.active::before {
+    content: "";
+    position: absolute;
+    top: -6.5px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #666666;
+    border-radius: 50%;
+  }
+
+  &:hover::before {
+    content: "";
+    position: absolute;
+    top: -6.5px;
+    width: 25px;
+    height: 25px;
+    background: #6200ee;
+    border: 1px solid #6200ee;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  &:hover {
+    color: #ffffff;
+  }
+
+  &.empty::before {
+    background: none;
+    border: none !important;
+    cursor: default;
+
+    &:hover::before {
+      background: none;
+    }
+  }
+
+  &.selected {
+    color: #ffffff;
+  }
+
+  &.selected::before {
+    content: "";
+    position: absolute;
+    top: -6.5px;
+    width: 25px;
+    height: 25px;
+    background: #6200ee;
+    border: 1px solid #6200ee;
+    border-radius: 50%;
+    z-index: -1;
+  }
+}

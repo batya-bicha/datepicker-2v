@@ -1,0 +1,12 @@
+.popup {
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  height: 250px;
+  background: #fff;
+  padding: 10px 15px;
+
+  &:first-child {
+    border-right: 1px solid #e5e5e5;
+  }
+}

@@ -1,0 +1,12 @@
+.rangePicker {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 340px;
+  height: 50px;
+  
+  .middleText{
+    margin-top: 25px;
+    color: #444444;
+  }
+}

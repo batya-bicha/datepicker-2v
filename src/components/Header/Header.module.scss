@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15%;
+  margin-bottom: 10px;
+
+  .img {
+    width: 20px;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .month {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
