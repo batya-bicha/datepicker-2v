@@ -3,8 +3,13 @@ import MonthDay from '../MonthDay';
 import styles from './Calendar.module.scss';
 
 
-export default function Calendar({ currentDate = new Date(), setCurrentDate, weekDays, months }) {
+export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, months }) {
   const [date, setDate] = React.useState(new Date());
+
+
+  React.useEffect(() => {
+    setDate(headerDate || new Date())
+  }, [currentDate, headerDate]);
 
 
   const selectDate = (day, month, year) => {
@@ -13,24 +18,25 @@ export default function Calendar({ currentDate = new Date(), setCurrentDate, wee
   }
 
   const inRange = () => {
-    
+
   }
 
   const renderMonthDays = () => {
-    const firstWeekDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay() - 1;
-    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+    const firstWeekDay = (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1) === -1 ? 6 : (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1);
+    const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     const monthDays = [];
+
 
     for (let i = 0; i < firstWeekDay; i++) {
       monthDays.push(<div key={i + 'empty'}></div>)
     }
 
     for (let i = 0; i < daysInMonth; i++) {
-      date.getDate() === i + 1 && date.getMonth() === currentDate.getMonth()
-        ? monthDays.push(<MonthDay key={i} day={i + 1} month={currentDate.getMonth()} year={currentDate.getFullYear()} classActive={'active'} selectDate={selectDate} />)
-        : currentDate.getDate() === i + 1
-          ? monthDays.push(<MonthDay key={i} day={i + 1} month={currentDate.getMonth()} year={currentDate.getFullYear()} classSelected={'selected'} selectDate={selectDate} />)
-          : monthDays.push(<MonthDay key={i} day={i + 1} month={currentDate.getMonth()} year={currentDate.getFullYear()} selectDate={selectDate} />)
+      new Date().getDate() === i + 1 && new Date().getMonth() === date.getMonth() && new Date().getFullYear() === date.getFullYear()
+        ? monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classActive={'active'} selectDate={selectDate} />)
+        : currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate.getMonth() && currentDate?.getFullYear() === headerDate.getFullYear()
+          ? monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classSelected={'selected'} selectDate={selectDate} />)
+          : monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} selectDate={selectDate} />)
     }
 
     return monthDays;

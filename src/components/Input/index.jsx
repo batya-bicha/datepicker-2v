@@ -16,7 +16,7 @@ export default function Input(props) {
 
   const changeText = (e) => {
     setDate(e.target.value);
-    return e.target.value.length === 10 ? props.setDate(e.target.value, true) : null
+    return e.target.value.length === 10 ? props.setDate(e.target.value, true) : null;
   }
 
 
@@ -38,5 +38,5 @@ export default function Input(props) {
 }
 
 //todo сделать проверку на ввод данных в формате XX.XX.XXXX
-//todo ДАННЫЕ ПРИ ВВОДЕ ЗАПИСЫВАТЬ В ПЕРЕМЕННЫЕ И УСТАНАВЛИВАТЬ КАК АКТУАЛЬНУЮ ДАТУ 
-//todo и передавать данные в POPUP и устанавливать как актуальные 
+//todo ДАННЫЕ ПРИ ВВОДЕ ЗАПИСЫВАТЬ В ПЕРЕМЕННЫЕ И УСТАНАВЛИВАТЬ КАК АКТУАЛЬНУЮ ДАТУ +
+//todo и передавать данные в POPUP и устанавливать как актуальные +

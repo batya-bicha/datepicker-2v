@@ -2,13 +2,21 @@ import React from 'react';
 import styles from './Header.module.scss';
 
 
-export default function Header({ months, src, currentDate = new Date(), setCurrentDate }) {
+export default function Header({ months, src, setHeaderDate, currentDate }) {
+  const [date, setDate] = React.useState(new Date());
+
+
+  React.useEffect(() => {
+    setDate(currentDate || new Date())
+  }, [currentDate])
+
 
   const changeMonth = () => {
     const convertToFormat = src === 'left'
-      ? [currentDate.getDate(), currentDate.getMonth() - 1, currentDate.getFullYear()].join('.')
-      : [currentDate.getDate(), currentDate.getMonth() + 1, currentDate.getFullYear()].join('.');
-    setCurrentDate(convertToFormat)
+      ? new Date(date?.getFullYear(), date?.getMonth() - 1, date?.getDate())
+      : new Date(date?.getFullYear(), date?.getMonth() + 1, date?.getDate())
+    setDate(convertToFormat);
+    setHeaderDate(convertToFormat);
   }
 
 
@@ -25,8 +33,11 @@ export default function Header({ months, src, currentDate = new Date(), setCurre
         />
       </div>
       <div className={styles.month}>
-        {months[currentDate?.getMonth()] + ' ' + currentDate?.getFullYear()}
+        {months[date?.getMonth()] + ' ' + (date?.getFullYear())}
       </div>
     </div>
   )
 }
+
+
+//! ВЫВОДИТЬ МЕСЯЦ В ПРИОРИТЕТЕ С ИНПУТА!!!!!!!!!!!!!!!!!
