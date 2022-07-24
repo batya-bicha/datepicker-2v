@@ -10,7 +10,7 @@ export default function Input(props) {
   React.useEffect(() => {
     const correctDay = props.currentDate?.getDate() < 10 ? '0' + props.currentDate?.getDate() : props.currentDate?.getDate();
     const correctMonth = props.currentDate?.getMonth() < 9 ? '0' + (props.currentDate?.getMonth() + 1) : (props.currentDate?.getMonth() + 1);
-    setDate(props.currentDate ? [correctDay, correctMonth, props.currentDate.getFullYear()].join('.') : '')
+    setDate(props.currentDate ? [correctDay, correctMonth, props.currentDate.getFullYear()].join('.') : '');
   }, [props.currentDate])
 
 
@@ -42,7 +42,3 @@ export default function Input(props) {
     </div>
   )
 }
-
-//todo сделать проверку на ввод данных в формате XX.XX.XXXX
-//todo ДАННЫЕ ПРИ ВВОДЕ ЗАПИСЫВАТЬ В ПЕРЕМЕННЫЕ И УСТАНАВЛИВАТЬ КАК АКТУАЛЬНУЮ ДАТУ +
-//todo и передавать данные в POPUP и устанавливать как актуальные +

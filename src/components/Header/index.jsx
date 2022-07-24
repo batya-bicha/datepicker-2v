@@ -7,7 +7,7 @@ export default function Header({ months, src, setHeaderDate, currentDate }) {
 
 
   React.useEffect(() => {
-    setDate(currentDate || new Date())
+    setDate(currentDate || new Date());
   }, [currentDate])
 
 

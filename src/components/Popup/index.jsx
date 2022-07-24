@@ -9,7 +9,7 @@ export default function Popup(props) {
 
 
   React.useEffect(() => {
-    setHeaderDate(props.currentDate || new Date())
+    setHeaderDate(props.currentDate || new Date());
   }, [props.currentDate])
 
 
@@ -17,10 +17,25 @@ export default function Popup(props) {
     setHeaderDate(date);
   }
 
+
   return (
     <div className={styles.popup}>
-      <Header setHeaderDate={setNewDate} currentDate={props.currentDate} setCurrentDate={props.setDate} months={props.months} src={props.src} />
-      <Calendar inRange={props.inRange} headerDate={headerDate} currentDate={props.currentDate} setCurrentDate={props.setDate} weekDays={props.weekDays} months={props.months} />
+      <Header
+        setHeaderDate={setNewDate}
+        currentDate={props.currentDate}
+        setCurrentDate={props.setDate}
+        months={props.months}
+        src={props.src}
+      />
+      <Calendar
+        inRange={props.inRange}
+        headerDate={headerDate}
+        currentDate={props.currentDate}
+        setCurrentDate={props.setDate}
+        weekDays={props.weekDays}
+        endDay={props.endDay}
+        startDay={props.startDay}
+      />
     </div>
   )
 }

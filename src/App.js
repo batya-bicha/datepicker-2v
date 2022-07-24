@@ -4,9 +4,9 @@ import RangePicker from './components/RangePicker';
 
 
 function App() {
-
   return (
     <div className="App">
+      <RangePicker />
       <RangePicker />
     </div>
   );

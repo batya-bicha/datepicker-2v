@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './MonthDay.module.scss';
 
 
-export default function MonthDay({ date, inRange, selectDate, day, month, year, classActive, classSelected }) {
+export default function MonthDay({ inRange, selectDate, day, month, year, classActive, classSelected }) {
   const [dayInRange, setDayInRange] = React.useState(false);
 
 
   React.useEffect(() => {
-    setDayInRange(inRange.dayInRange(new Date(year, month, day)))
-  }, [date])
+    setDayInRange(inRange.dayInRange(new Date(year, month, day)));
+  })
+  
 
   return (
     <div

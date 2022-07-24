@@ -24,8 +24,8 @@
     top: -6.5px;
     width: 25px;
     height: 25px;
-    background: #6200ee;
-    border: 1px solid #6200ee;
+    background: #8280f7;
+    border: 1px solid #8280f7;
     border-radius: 50%;
     z-index: -1;
   }
@@ -85,23 +85,6 @@
     &:nth-child(7n-6)::after {
       width: 25px;
       border-radius: 50% 0 0 50%;
-    }
-  }
-
-  //! ???????????
-  &.range {
-    &:last-child::after {
-      background: #000;
-      width: 45px;
-      z-index: -1;
-    }
-  }
-
-  //! ???????????
-  &.range {
-    &:first-child::after {
-      width: 45px;
-      z-index: -1;
     }
   }
 }

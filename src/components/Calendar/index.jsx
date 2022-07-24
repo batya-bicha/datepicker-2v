@@ -3,12 +3,12 @@ import MonthDay from '../MonthDay';
 import styles from './Calendar.module.scss';
 
 
-export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, inRange }) {
+export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, inRange, endDay, startDay }) {
   const [date, setDate] = React.useState(new Date());
 
 
   React.useEffect(() => {
-    setDate(headerDate || new Date())
+    setDate(headerDate || new Date());
   }, [currentDate, headerDate]);
 
 
@@ -16,6 +16,7 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
     const convertToFormat = [day, month, year].join('.');
     setCurrentDate(convertToFormat);
   }
+
 
   const renderMonthDays = () => {
     const firstWeekDay = (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1) === -1 ? 6 : (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1);
@@ -28,12 +29,45 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
     }
 
     for (let i = 0; i < daysInMonth; i++) {
-      new Date().getDate() === i + 1 && new Date().getMonth() === date.getMonth() && new Date().getFullYear() === date.getFullYear()
-        ? monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classActive={'active'} selectDate={selectDate} />)
-        : currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate.getMonth() && currentDate?.getFullYear() === headerDate.getFullYear()
-          ? monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classSelected={'selected'} selectDate={selectDate} />)
-          : monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} selectDate={selectDate} />)
+      (currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate.getMonth() && currentDate?.getFullYear() === headerDate.getFullYear())
+        ||
+        (startDay?.getDate() === i + 1 && startDay?.getMonth() === headerDate.getMonth() && startDay?.getFullYear() === headerDate.getFullYear() || endDay?.getDate() === i + 1 && endDay?.getMonth() === headerDate.getMonth() && endDay?.getFullYear() === headerDate.getFullYear())
+        ? monthDays.push(
+          <MonthDay
+            key={i}
+            inRange={inRange}
+            day={i + 1}
+            month={date.getMonth()}
+            year={date.getFullYear()}
+            classSelected={'selected'}
+            selectDate={selectDate}
+          />
+        )
+
+        : new Date().getDate() === i + 1 && new Date().getMonth() === date.getMonth() && new Date().getFullYear() === date.getFullYear()
+          ? monthDays.push(
+            <MonthDay
+              key={i}
+              inRange={inRange}
+              day={i + 1}
+              month={date.getMonth()}
+              year={date.getFullYear()}
+              classActive={'active'}
+              selectDate={selectDate}
+            />
+          )
+          : monthDays.push(
+            <MonthDay
+              key={i}
+              inRange={inRange}
+              day={i + 1}
+              month={date.getMonth()}
+              year={date.getFullYear()}
+              selectDate={selectDate}
+            />
+          )
     }
+
 
     return monthDays;
   }
