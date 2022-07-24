@@ -3,7 +3,7 @@ import MonthDay from '../MonthDay';
 import styles from './Calendar.module.scss';
 
 
-export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, months }) {
+export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, inRange }) {
   const [date, setDate] = React.useState(new Date());
 
 
@@ -15,10 +15,6 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
   const selectDate = (day, month, year) => {
     const convertToFormat = [day, month, year].join('.');
     setCurrentDate(convertToFormat);
-  }
-
-  const inRange = () => {
-
   }
 
   const renderMonthDays = () => {
@@ -33,10 +29,10 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
 
     for (let i = 0; i < daysInMonth; i++) {
       new Date().getDate() === i + 1 && new Date().getMonth() === date.getMonth() && new Date().getFullYear() === date.getFullYear()
-        ? monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classActive={'active'} selectDate={selectDate} />)
+        ? monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classActive={'active'} selectDate={selectDate} />)
         : currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate.getMonth() && currentDate?.getFullYear() === headerDate.getFullYear()
-          ? monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classSelected={'selected'} selectDate={selectDate} />)
-          : monthDays.push(<MonthDay key={i} day={i + 1} month={date.getMonth()} year={date.getFullYear()} selectDate={selectDate} />)
+          ? monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} classSelected={'selected'} selectDate={selectDate} />)
+          : monthDays.push(<MonthDay key={i} date={date} inRange={inRange} day={i + 1} month={date.getMonth()} year={date.getFullYear()} selectDate={selectDate} />)
     }
 
     return monthDays;

@@ -24,20 +24,5 @@
     grid-template-columns: repeat(7, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 15px;
-
-    .selected{
-      color: #ffffff;
-    }
-  
-    .selected::before{
-      content: '';
-      position: absolute;
-      top: -7px;
-      width: 25px;
-      height: 25px;
-      background: #6200ee;
-      border-radius: 50%;
-      z-index: -1;
-    }
   }
 }

@@ -4,7 +4,7 @@ import styles from './Input.module.scss';
 
 export default function Input(props) {
   const [date, setDate] = React.useState('');
-  const [inputInfo, setInputInfo] = React.useState();
+  const [inputFocus, setInputFocus] = React.useState(false);
 
 
   React.useEffect(() => {
@@ -16,22 +16,28 @@ export default function Input(props) {
 
   const changeText = (e) => {
     setDate(e.target.value);
-    return e.target.value.length === 10 ? props.setDate(e.target.value, true) : null;
+    return e.target.value.length === 10 && e.target.checkValidity() ? props.setDate(e.target.value, true) : null;
   }
 
 
   return (
-    <div className={styles.container}>
-      <p className={styles.text}>
+    <div className={styles.container + ' ' + (inputFocus ? styles.focusInput : ' ')}>
+      <p className={styles.text + ' ' + (inputFocus ? styles.focusText : ' ')}>
         {props.text} Date
       </p>
       <input
         className={styles.date}
         onChange={(e) => changeText(e)}
+        onFocus={() => setInputFocus(prevState => !inputFocus)}
+        onBlur={() => setInputFocus(prevState => !inputFocus)}
         value={date}
         placeholder="dd.mm.yyyy"
         type="text"
         name="date"
+        autoComplete="off"
+        title="Используйте числовой формат даты"
+        pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+        maxLength={10}
       />
     </div>
   )

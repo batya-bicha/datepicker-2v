@@ -12,7 +12,7 @@ export default function Popup(props) {
     setHeaderDate(props.currentDate || new Date())
   }, [props.currentDate])
 
-  
+
   const setNewDate = (date) => {
     setHeaderDate(date);
   }
@@ -20,7 +20,7 @@ export default function Popup(props) {
   return (
     <div className={styles.popup}>
       <Header setHeaderDate={setNewDate} currentDate={props.currentDate} setCurrentDate={props.setDate} months={props.months} src={props.src} />
-      <Calendar headerDate={headerDate} currentDate={props.currentDate} setCurrentDate={props.setDate} weekDays={props.weekDays} months={props.months} />
+      <Calendar inRange={props.inRange} headerDate={headerDate} currentDate={props.currentDate} setCurrentDate={props.setDate} weekDays={props.weekDays} months={props.months} />
     </div>
   )
 }

@@ -59,4 +59,49 @@
     border-radius: 50%;
     z-index: -1;
   }
+
+  &.range {
+    position: relative;
+  }
+
+  &.range::after {
+    content: "";
+    position: absolute;
+    top: -6.5px;
+    width: 35px;
+    height: 25px;
+    background: #ece0fd;
+    z-index: -5;
+  }
+
+  &.range {
+    &:nth-child(7n)::after {
+      width: 25px;
+      border-radius: 0 50% 50% 0;
+    }
+  }
+
+  &.range {
+    &:nth-child(7n-6)::after {
+      width: 25px;
+      border-radius: 50% 0 0 50%;
+    }
+  }
+
+  //! ???????????
+  &.range {
+    &:last-child::after {
+      background: #000;
+      width: 45px;
+      z-index: -1;
+    }
+  }
+
+  //! ???????????
+  &.range {
+    &:first-child::after {
+      width: 45px;
+      z-index: -1;
+    }
+  }
 }

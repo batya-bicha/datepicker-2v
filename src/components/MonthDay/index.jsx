@@ -2,17 +2,24 @@ import React from 'react';
 import styles from './MonthDay.module.scss';
 
 
-export default function MonthDay(props) {
+export default function MonthDay({ date, inRange, selectDate, day, month, year, classActive, classSelected }) {
+  const [dayInRange, setDayInRange] = React.useState(false);
+
+
+  React.useEffect(() => {
+    setDayInRange(inRange.dayInRange(new Date(year, month, day)))
+  }, [date])
 
   return (
     <div
-      onClick={() => props.selectDate(props.day, props.month, props.year)}
+      onClick={() => selectDate(day, month, year)}
       className={styles.monthDay + ' '
-        + (props.classActive ? styles[props.classActive] + ' ' : ' ')
-        + (props.classSelected ? styles[props.classSelected] : ' ')
+        + (classActive ? styles[classActive] + ' ' : ' ')
+        + (classSelected ? styles[classSelected] : ' ')
+        + (dayInRange ? styles.range : ' ')
       }
     >
-      {props.day}
+      {day}
     </div>
   )
 }

@@ -8,12 +8,20 @@
   padding: 8px 15px 10px;
   cursor: pointer;
 
+  &.focusInput {
+    border-bottom: 2px solid #702eed;
+  }
+
   .text {
     display: flex;
     width: 100%;
     color: #6a6a6a;
     font-size: 12px;
     margin-bottom: 2px;
+
+    &.focusText {
+      color: #702eed;
+    }
   }
 
   .date {
