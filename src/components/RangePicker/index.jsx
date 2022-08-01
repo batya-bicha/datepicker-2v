@@ -1,6 +1,5 @@
 import React from 'react';
-import LeftDatePicker from '../LeftDatePicker';
-import RightDatePicker from '../RightDatePicker';
+import DatePickerInput from '../DatePickerInput';
 import DatePickerPopup from '../DatePickerPopup';
 import styles from './RangePicker.module.scss';
 
@@ -16,7 +15,7 @@ export default function RangePicker() {
 
 
   const handlerPopup = (e) => {
-    return e.target.className.includes('RangePicker') || e.target.className.includes('Input') ? setIsOpen(prevState => !isOpen) : null;
+    return e.target.className.includes('RangePicker') || e.target.className.includes('Input') ? setIsOpen(prevState => !prevState) : null;
   }
 
 
@@ -39,18 +38,16 @@ export default function RangePicker() {
       className={styles.rangePicker}
       onClick={(e) => handlerPopup(e)}
     >
-      <LeftDatePicker
+      <DatePickerInput
         setDate={setStartDate}
-        startDate={start}
-        weekDays={weekDays.current}
-        months={months.current}
+        date={start}
+        text="Start"
       />
       <span className={styles.middleText}>to</span>
-      <RightDatePicker
+      <DatePickerInput
         setDate={setEndDate}
-        endDate={end}
-        weekDays={weekDays.current}
-        months={months.current}
+        date={end}
+        text="End"
       />
       {isOpen &&
         <DatePickerPopup

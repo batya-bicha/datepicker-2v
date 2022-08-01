@@ -4,6 +4,8 @@ import styles from './DatePickerPopup.module.scss';
 
 
 export default function DatePickerPopup(props) {
+  // const hasSelectedDates = startDate && endDat
+//todo добавить переменные для упрощения проверки
 
   const inRange = {
     startDate: props.startDate,

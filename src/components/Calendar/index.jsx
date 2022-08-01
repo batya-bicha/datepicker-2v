@@ -2,7 +2,6 @@ import React from 'react';
 import MonthDay from '../MonthDay';
 import styles from './Calendar.module.scss';
 
-
 export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, inRange, endDay, startDay }) {
   const [date, setDate] = React.useState(new Date());
 
@@ -20,7 +19,7 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
 
   const renderMonthDays = () => {
     const firstWeekDay = (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1) === -1 ? 6 : (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1);
-    const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    const daysInMonth = new Date(date?.getFullYear(), date?.getMonth() + 1, 0)?.getDate();
     const monthDays = [];
 
 
@@ -28,10 +27,11 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
       monthDays.push(<div key={i + 'empty'}></div>)
     }
 
+
     for (let i = 0; i < daysInMonth; i++) {
-      (currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate.getMonth() && currentDate?.getFullYear() === headerDate.getFullYear())
+      (currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate?.getMonth() && currentDate?.getFullYear() === headerDate?.getFullYear())
         ||
-        (startDay?.getDate() === i + 1 && startDay?.getMonth() === headerDate.getMonth() && startDay?.getFullYear() === headerDate.getFullYear() || endDay?.getDate() === i + 1 && endDay?.getMonth() === headerDate.getMonth() && endDay?.getFullYear() === headerDate.getFullYear())
+        (startDay?.getDate() === i + 1 && startDay?.getMonth() === headerDate?.getMonth() && startDay?.getFullYear() === headerDate?.getFullYear() || endDay?.getDate() === i + 1 && endDay?.getMonth() === headerDate?.getMonth() && endDay?.getFullYear() === headerDate?.getFullYear())
         ? monthDays.push(
           <MonthDay
             key={i}
