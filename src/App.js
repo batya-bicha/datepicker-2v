@@ -5,7 +5,7 @@ import RangePicker from './components/RangePicker';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <RangePicker />
     </div>
   );

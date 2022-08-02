@@ -9,7 +9,7 @@ export default function MonthDay({ inRange, selectDate, day, month, year, classA
   React.useEffect(() => {
     setDayInRange(inRange.dayInRange(new Date(year, month, day)));
   })
-  
+
 
   return (
     <div

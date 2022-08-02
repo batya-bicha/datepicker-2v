@@ -1,4 +1,5 @@
 import React from 'react';
+import { dateHelper } from '../../date.helper';
 import styles from './Input.module.scss';
 
 
@@ -8,9 +9,9 @@ export default function Input(props) {
 
 
   React.useEffect(() => {
-    const correctDay = props.currentDate?.getDate() < 10 ? '0' + props.currentDate?.getDate() : props.currentDate?.getDate();
-    const correctMonth = props.currentDate?.getMonth() < 9 ? '0' + (props.currentDate?.getMonth() + 1) : (props.currentDate?.getMonth() + 1);
-    setDate(props.currentDate ? [correctDay, correctMonth, props.currentDate.getFullYear()].join('.') : '');
+    const correctDay = dateHelper.getCorrectDay(props.currentDate);
+    const correctMonth = dateHelper.getCorrectMonth(props.currentDate);
+    setDate(props.currentDate ? dateHelper.setCurrentDateFormat(correctDay, correctMonth, props.currentDate) : '');
   }, [props.currentDate])
 
 
@@ -28,8 +29,8 @@ export default function Input(props) {
       <input
         className={styles.date}
         onChange={(e) => changeText(e)}
-        onFocus={() => setInputFocus(prevState => !inputFocus)}
-        onBlur={() => setInputFocus(prevState => !inputFocus)}
+        onFocus={() => setInputFocus(prevState => !prevState)}
+        onBlur={() => setInputFocus(prevState => !prevState)}
         value={date}
         placeholder="dd.mm.yyyy"
         type="text"

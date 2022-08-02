@@ -25,12 +25,13 @@ export default function Popup(props) {
         currentDate={props.currentDate}
         setCurrentDate={props.setDate}
         months={props.months}
-        src={props.src}
       />
       <Calendar
         inRange={props.inRange}
         headerDate={headerDate}
         currentDate={props.currentDate}
+        testSetDate={props.testSetDate}
+
         setCurrentDate={props.setDate}
         weekDays={props.weekDays}
         endDay={props.endDay}

@@ -1,8 +1,9 @@
 import React from 'react';
+import { dateHelper } from '../../date.helper';
 import styles from './Header.module.scss';
 
 
-export default function Header({ months, src, setHeaderDate, currentDate }) {
+export default function Header({ months, setHeaderDate, currentDate }) {
   const [date, setDate] = React.useState(new Date());
 
 
@@ -11,10 +12,10 @@ export default function Header({ months, src, setHeaderDate, currentDate }) {
   }, [currentDate])
 
 
-  const changeMonth = () => {
-    const convertToFormat = src === 'left'
-      ? new Date(date?.getFullYear(), date?.getMonth() - 1, date?.getDate())
-      : new Date(date?.getFullYear(), date?.getMonth() + 1, date?.getDate())
+  const changeMonth = (month) => {
+    const convertToFormat = month === 'prevMonth'
+      ? dateHelper.getPrevMonth(date)
+      : dateHelper.getNextMonth(date)
     setDate(convertToFormat);
     setHeaderDate(convertToFormat);
   }
@@ -23,21 +24,26 @@ export default function Header({ months, src, setHeaderDate, currentDate }) {
   return (
     <div className={styles.header}>
       <div
-        onClick={() => changeMonth()}
+        onClick={() => changeMonth('prevMonth')}
         className={styles.img}
-        style={src === 'right' ? { order: 1 } : null}
       >
         <img
-          src={`/img/${src}_arrow.svg`}
-          alt={src}
+          src={'/img/left_arrow.svg'}
+          alt={'left'}
         />
       </div>
       <div className={styles.month}>
         {months[date?.getMonth()] + ' ' + (date?.getFullYear())}
       </div>
+      <div
+        onClick={() => changeMonth('nextMonth')}
+        className={styles.img}
+      >
+        <img
+          src={'/img/right_arrow.svg'}
+          alt={'right'}
+        />
+      </div>
     </div>
   )
 }
-
-
-//! ВЫВОДИТЬ МЕСЯЦ В ПРИОРИТЕТЕ С ИНПУТА!!!!!!!!!!!!!!!!!

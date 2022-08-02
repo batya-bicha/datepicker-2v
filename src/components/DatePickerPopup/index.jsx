@@ -1,18 +1,19 @@
 import React from 'react';
 import Popup from '../Popup';
+import { dateHelper } from '../../date.helper';
 import styles from './DatePickerPopup.module.scss';
 
 
 export default function DatePickerPopup(props) {
-  // const hasSelectedDates = startDate && endDat
-//todo добавить переменные для упрощения проверки
 
   const inRange = {
     startDate: props.startDate,
     endDate: props.endDate,
     dayInRange: function (date, startDate = this.startDate, endDate = this.endDate) {
+      const hasSelectedDates = dateHelper.checkInRangeCondition(date, startDate, endDate);
+
       return (startDate && endDate) ?
-        (date > startDate && date < endDate) || (date < startDate && date > endDate)  ? true : false
+        hasSelectedDates ? true : false
         : null
     }
   }
@@ -22,19 +23,23 @@ export default function DatePickerPopup(props) {
     <div className={styles.popup}>
       <Popup
         inRange={inRange}
-        src={'left'}
+        testSetDate={props.setDate}
+
         setDate={props.setDate[0]}
         currentDate={props.startDate}
+        startDay={props.startDate}
         endDay={props.endDate}
         weekDays={props.weekDays}
         months={props.months}
       />
       <Popup
         inRange={inRange}
-        src={'right'}
+        testSetDate={props.setDate}
+
         setDate={props.setDate[1]}
         currentDate={props.endDate}
         startDay={props.startDate}
+        endDay={props.endDate}
         weekDays={props.weekDays}
         months={props.months}
       />

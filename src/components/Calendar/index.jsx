@@ -1,9 +1,26 @@
 import React from 'react';
 import MonthDay from '../MonthDay';
+import { dateHelper } from '../../date.helper';
 import styles from './Calendar.module.scss';
 
-export default function Calendar({ headerDate, currentDate, setCurrentDate, weekDays, inRange, endDay, startDay }) {
+
+//! function usePrevios(value) {
+//   const prevValueRef = React.useRef(null);
+
+//   React.useEffect(() => {
+//     prevValueRef.current = value;
+//   });
+
+//   return prevValueRef.current;
+// }
+
+
+export default function Calendar({ testSetDate, headerDate, currentDate, setCurrentDate, weekDays, inRange, endDay, startDay }) {
   const [date, setDate] = React.useState(new Date());
+  const [toggleDate, setToggleDate] = React.useState(true);
+  //! const [prevStartDay, setPrevStartDay] = React.useState();
+  // const [prevEndDay, setPrevEndDay] = React.useState();
+  // const prevProps = usePrevios([prevStartDay, prevEndDay]);
 
 
   React.useEffect(() => {
@@ -13,13 +30,31 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
 
   const selectDate = (day, month, year) => {
     const convertToFormat = [day, month, year].join('.');
-    setCurrentDate(convertToFormat);
+    const provenStartDay = toggleDate ? day : null;
+    const provenEndDay = !toggleDate ? day : null;
+
+    setToggleDate(prevState => !prevState);
+    //! setPrevStartDay(provenStartDay);
+    // setPrevEndDay(provenEndDay);
+
+    // if (Number.isInteger(prevProps.current[1]) ? prevProps.current[1] < day : false) {
+    //   testSetDate[1](convertToFormat);
+    //   setToggleDate(!toggleDate);
+    // } else if (prevProps.current[0] > day) {
+    //   testSetDate[0](convertToFormat);
+    //   setToggleDate(!toggleDate);
+    // }
+
+    toggleDate ? testSetDate[0](convertToFormat) : testSetDate[1](convertToFormat);
+
+    //todo start > end && end < start -> set startDay
+
   }
 
 
   const renderMonthDays = () => {
-    const firstWeekDay = (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1) === -1 ? 6 : (new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1);
-    const daysInMonth = new Date(date?.getFullYear(), date?.getMonth() + 1, 0)?.getDate();
+    const firstWeekDay = dateHelper.getFirstWeekDay(date);
+    const daysInMonth = dateHelper.getDaysInMonth(date);
     const monthDays = [];
 
 
@@ -29,9 +64,7 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
 
 
     for (let i = 0; i < daysInMonth; i++) {
-      (currentDate?.getDate() === i + 1 && currentDate?.getMonth() === headerDate?.getMonth() && currentDate?.getFullYear() === headerDate?.getFullYear())
-        ||
-        (startDay?.getDate() === i + 1 && startDay?.getMonth() === headerDate?.getMonth() && startDay?.getFullYear() === headerDate?.getFullYear() || endDay?.getDate() === i + 1 && endDay?.getMonth() === headerDate?.getMonth() && endDay?.getFullYear() === headerDate?.getFullYear())
+      dateHelper.checkSelectedDay(currentDate, headerDate, startDay, endDay, i)
         ? monthDays.push(
           <MonthDay
             key={i}
@@ -43,8 +76,7 @@ export default function Calendar({ headerDate, currentDate, setCurrentDate, week
             selectDate={selectDate}
           />
         )
-
-        : new Date().getDate() === i + 1 && new Date().getMonth() === date.getMonth() && new Date().getFullYear() === date.getFullYear()
+        : dateHelper.checkCurrentDay(date, i)
           ? monthDays.push(
             <MonthDay
               key={i}
