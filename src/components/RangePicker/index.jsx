@@ -5,10 +5,6 @@ import { dateHelper } from '../../date.helper';
 import styles from './RangePicker.module.scss';
 
 
-const weekDays = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-
 const useClickOutside = (ref, callback) => {
   const handleClick = e => {
     if (ref.current && !ref.current.contains(e.target)) {
@@ -25,8 +21,13 @@ const useClickOutside = (ref, callback) => {
 };
 
 
+const weekDays = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+
 export default function RangePicker() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [dateFromInput, setDateFromInput] = React.useState(true);
   const [start, setStart] = React.useState();
   const [end, setEnd] = React.useState();
 
@@ -39,22 +40,26 @@ export default function RangePicker() {
     return e.currentTarget.className.includes('RangePicker') ? setIsOpen(true) : null;
   }
 
-  //* ?????
+
   const setStartDate = (date, bool) => {
     const currentDate = date.split('.');
     const formattedDate = bool
-      ? dateHelper.getInputDate(currentDate)
+      ? (dateHelper.getInputDate(currentDate))
       : dateHelper.getCalendarDate(currentDate);
     setStart(formattedDate);
+
+    return bool ? setDateFromInput(false) : null;
   }
 
-  //* ?????
+
   const setEndDate = (date, bool) => {
     const currentDate = date.split('.');
     const formattedDate = bool
       ? dateHelper.getInputDate(currentDate)
       : dateHelper.getCalendarDate(currentDate);
     setEnd(formattedDate);
+
+    return bool ? setDateFromInput(true) : null;
   }
 
 
@@ -82,6 +87,8 @@ export default function RangePicker() {
           endDate={end}
           weekDays={weekDays}
           months={months}
+
+          dateFromInput={dateFromInput}
         />}
     </div>
   )

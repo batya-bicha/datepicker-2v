@@ -57,10 +57,17 @@ export const dateHelper = {
 //* singelton example in google
 
 //? Update selected range styles ***
-//? - 
+//? --- 
+
+//* fix startDate and endDate on INPUT
+//* ---
+
+//! change SELECTED day styles 
+//! ---
+
 
 //todo add possibility to update both dates on one calendar ***
-//todo -
+//todo +++
 
 //? add clickoutside hook *
 //? +++

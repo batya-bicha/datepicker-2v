@@ -11,13 +11,18 @@ export default function Input(props) {
   React.useEffect(() => {
     const correctDay = dateHelper.getCorrectDay(props.currentDate);
     const correctMonth = dateHelper.getCorrectMonth(props.currentDate);
-    setDate(props.currentDate ? dateHelper.setCurrentDateFormat(correctDay, correctMonth, props.currentDate) : '');
+    const currentDate = props.currentDate ? dateHelper.setCurrentDateFormat(correctDay, correctMonth, props.currentDate) : '';
+
+    setDate(currentDate);
+
   }, [props.currentDate])
 
 
   const changeText = (e) => {
     setDate(e.target.value);
-    return e.target.value.length === 10 && e.target.checkValidity() ? props.setDate(e.target.value, true) : null;
+    return e.target.value.length === 10 && e.target.checkValidity()
+      ? props.setDate(e.target.value, true)
+      : null;
   }
 
 

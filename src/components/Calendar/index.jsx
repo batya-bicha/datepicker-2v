@@ -4,23 +4,8 @@ import { dateHelper } from '../../date.helper';
 import styles from './Calendar.module.scss';
 
 
-//! function usePrevios(value) {
-//   const prevValueRef = React.useRef(null);
-
-//   React.useEffect(() => {
-//     prevValueRef.current = value;
-//   });
-
-//   return prevValueRef.current;
-// }
-
-
-export default function Calendar({ testSetDate, headerDate, currentDate, setCurrentDate, weekDays, inRange, endDay, startDay }) {
+export default function Calendar({ toggleSelectDate,  headerDate, currentDate,  weekDays, inRange, endDay, startDay }) {
   const [date, setDate] = React.useState(new Date());
-  const [toggleDate, setToggleDate] = React.useState(true);
-  //! const [prevStartDay, setPrevStartDay] = React.useState();
-  // const [prevEndDay, setPrevEndDay] = React.useState();
-  // const prevProps = usePrevios([prevStartDay, prevEndDay]);
 
 
   React.useEffect(() => {
@@ -30,25 +15,8 @@ export default function Calendar({ testSetDate, headerDate, currentDate, setCurr
 
   const selectDate = (day, month, year) => {
     const convertToFormat = [day, month, year].join('.');
-    const provenStartDay = toggleDate ? day : null;
-    const provenEndDay = !toggleDate ? day : null;
 
-    setToggleDate(prevState => !prevState);
-    //! setPrevStartDay(provenStartDay);
-    // setPrevEndDay(provenEndDay);
-
-    // if (Number.isInteger(prevProps.current[1]) ? prevProps.current[1] < day : false) {
-    //   testSetDate[1](convertToFormat);
-    //   setToggleDate(!toggleDate);
-    // } else if (prevProps.current[0] > day) {
-    //   testSetDate[0](convertToFormat);
-    //   setToggleDate(!toggleDate);
-    // }
-
-    toggleDate ? testSetDate[0](convertToFormat) : testSetDate[1](convertToFormat);
-
-    //todo start > end && end < start -> set startDay
-
+    toggleSelectDate(convertToFormat);
   }
 
 
@@ -99,7 +67,6 @@ export default function Calendar({ testSetDate, headerDate, currentDate, setCurr
             />
           )
     }
-
 
     return monthDays;
   }
